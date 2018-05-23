@@ -5,6 +5,7 @@ import pandas as pd
 from selenium import webdriver
 import requests
 import pymongo
+import time
 
 def init_browser():
     executable_path = {"executable_path": "resources/chromedriver.exe"}
@@ -21,6 +22,7 @@ def mars_scrape():
     #establish BeautifulSoup
     html = browser.html
     soup = BeautifulSoup(html, "html.parser")
+    time.sleep(10)
 
     #Scrape the article title and teaser from the webpage This goes into the scrape file
     #------------------------------------------------------------------
@@ -34,6 +36,7 @@ def mars_scrape():
 
     html_image = browser.html
     soup_jpl = BeautifulSoup(html_image, "html.parser")
+    time.sleep(10)
     #find the image url for the featured image on the Mars page
     img_url_end = soup_jpl.article.find("a", {"class" : "button"})['data-fancybox-href']
     #------------------------------------------------------------------
@@ -47,7 +50,7 @@ def mars_scrape():
 
     html_weather = browser.html
     soup_weather = BeautifulSoup(html_weather, "html.parser")
-
+    time.sleep(10)
     #find the most recent tweet and scrape the text
     #------------------------------------------------------------------
     weather_tweet = soup_weather.find("p", class_="TweetTextSize").get_text()
@@ -60,7 +63,7 @@ def mars_scrape():
 
     html_facts = browser.html
     soup_facts = BeautifulSoup(html_facts, "html.parser")
-
+    time.sleep(10)
     tables = pd.read_html(url_facts)
 
     #find the correct table, convert to html, then remove excess characters
@@ -77,7 +80,7 @@ def mars_scrape():
 
     html_hemisphere = browser.html
     soup_hemisphere = BeautifulSoup(html_hemisphere, "html.parser")
-
+    time.sleep(10)
     #create a for loop to find all extensions to indivdual pages for full resolution images
     hemisphere_results = soup_hemisphere.find_all("div", class_="item")
     hemisphere_links = []
@@ -98,7 +101,8 @@ def mars_scrape():
         
         html_link = browser.html
         soup_link = BeautifulSoup(html_link, "html.parser")
-        
+        time.sleep(10)
+
         img_link = soup_link.find('img', {'class':'wide-image'})['src']
         img_title = soup_link.find('h2', {'class': 'title'}).get_text()
         hemisphere_img_links = url_hemisphere_base + img_link

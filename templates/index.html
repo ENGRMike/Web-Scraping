@@ -1,25 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Scraping Mars</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mars Data</title>
 
-    <body>
-        <div class="container">
-            <div class=" jumbotron text-center">
+    <!-- bootstrap -->
+    
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    
+</head>
+<body style="background-color:black">
+    <div class="container">
+        <div class="jumbotron" style="text-align: center">
                 <h1>Mission to Mars</h1>
-                <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+                <hr>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="/scrape">Scrape New Data</a>
+                </p>
+        </div>
+        <!-- row 1 : panel with news -->
+        <div class="row">
+            <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                   <h3>Latest Mars News</h3>
+                   <hr>
+                   <h5>{{ dict.title }}</h5>
+                   <p>{{ dict.paragraph }}</p>
+                </div>
+                </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12 col-md-offset-2">
-                 <h3>{{ mars_data.jpl_pic }}</h3>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-8">            
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                       <h3>Featured Mars Image</h3>
+                       <hr>
+                       <img src="{{ dict.jpl_pic }}" alt="Mars Featured Image" style="width: 100%">
+                    </div>
+                </div>                             
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                               <h4>Current Weather on Mars</h4>
+                               <hr>
+                               <p>{{ dict.mars_weather }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                               <h4>Mars Facts</h4>
+                               <hr>
+                               {{ dict.mars_facts | safe}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <h3 style="text-align: center">Mars Hemispheres</h3>
+                            <hr>
+                        </div>
+                       <div class="row">                           
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <a>
+                                    <h1>{{ dict['mars_hemispheres'][0]['desc'] }}</h1>
+                                    <img src="{{dict['mars_hemispheres'][0]['url']}}" height=300px width=300px>
+                                </a>
+                            </div>                               
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <a>
+                                        <h1>{{ dict['mars_hemispheres'][1]['desc'] }}</h1>
+                                        <img src="{{dict['mars_hemispheres'][1]['url']}}" height=300px width=300px>
+                                </a>
+                            </div>
+                       </div>
+                       <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <a>
+                                    <h1>{{ dict['mars_hemispheres'][2]['desc'] }}</h1>
+                                    <img src="{{dict['mars_hemispheres'][2]['url']}}" height=300px width=300px>
+                                </a>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <a>
+                                    <h1>{{ dict['mars_hemispheres'][3]['desc'] }}</h1>
+                                    <img src="{{dict['mars_hemispheres'][3]['url']}}" height=300px width=300px>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </div>  
+</body>
 </html>
